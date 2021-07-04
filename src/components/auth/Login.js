@@ -24,15 +24,15 @@ class Login extends Component {
             withCredentials: true
         })
             .then(res => {
-                console.log(res)
-                // if (res.data.status === 'created'){
-                //     this.props.handleSuccessfulAuth(res.data)
-                // } else {
-                //     console.log('Error')
-                // }
+                // console.log('response from login',res)
+                if (res.data.logged_in){
+                    this.props.handleSuccessfulAuth(res.data)
+                } else {
+                    console.log('Error')
+                }
             })
             .catch(error => {
-                console.log('error', error)
+                console.log('login error', error)
             })
     }
 
@@ -59,18 +59,11 @@ class Login extends Component {
                         value={this.state.password} 
                         onChange={this.handleChange}
                         required />
-                    <input 
-                        type='password'
-                        name='password_confirmation' 
-                        placeholder='Password confirmation' 
-                        value={this.state.password_confirmation} 
-                        onChange={this.handleChange}
-                        required />
-                    <button type='submit'>Submit</button>
+                    <button type='submit'>Login</button>
                 </form>
             </div>
         );
     }
 }
 
-export default Registration;
+export default Login;

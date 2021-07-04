@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import { Component } from 'react';
+import axios from 'axios';
 
 class App extends Component{
   constructor() {
@@ -13,6 +14,30 @@ class App extends Component{
     };
 
     this.handleLogin = this.handleLogin.bind(this)
+  }
+
+  checkLoginStatus(){
+    axios.get('http://localhost:3001/logged_in', {
+      withCredentials: true
+    })
+      .then(res => {
+        if (res.data.logged_in && this.state.loggedInStatus === 'NOT_LOGGED_IN'){
+          this.setState({
+            loggedInStatus: 'LOGGED_IN',
+            user: res.data.user
+          })
+        } else if (!res.data.logged_in && this.state.loggedInStatus === 'LOGGED_IN') {
+          this.setState({
+            loggedInStatus: 'NOT_LOGGED_IN',
+            user: {}
+          })
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
+  componentDidMount(){
+    this.checkLoginStatus()
   }
 
   handleLogin(data){
