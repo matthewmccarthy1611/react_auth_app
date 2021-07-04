@@ -9,6 +9,7 @@ class Home extends Component {
 
     handleSuccessfulAuth(data){
         //TODO update parent component
+        this.props.handleLogin(data)
         this.props.history.push('/dashboard')
     }
 
