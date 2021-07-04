@@ -28,7 +28,7 @@ class Registration extends Component {
             .then(res => {
                 console.log('response',res)
             })
-            .then(error => {
+            .catch(error => {
                 console.log('error', error)
             })
     }
